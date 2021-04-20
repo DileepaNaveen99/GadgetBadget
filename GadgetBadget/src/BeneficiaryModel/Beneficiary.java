@@ -108,6 +108,7 @@ public class Beneficiary {
 		 }
 		 con.close();
 	 
+		 
 		 // Complete the html table
 		 
 		 output += "</table>";
@@ -127,6 +128,95 @@ public class Beneficiary {
 		 
 		 }
 	
+	
+	
+		//update beneficiary details...........................
+		
+		public String updateBeneficiaries(String id,String username, String age , String address, String password)
+		
+		 {
+				 String output = "";
+				 
+				 try
+				 {
+					 Connection con = connect();
+				 if (con == null)
+					 {
+						 return "Error while connecting to the database for updating."; 
+					 }
+				 
+				 
+				 // create a prepared statement
+				 
+				 
+				 String query = " update beneficiaries set InventorUser= ? , InventorAge = ? , InventorAddress = ? , InventorPassword = ?  where InventorID = ? ";
+					
+				 PreparedStatement preparedStmt = con.prepareStatement(query);
+				 
+				 // binding values
+				 preparedStmt.setString(1, username);
+				 preparedStmt.setInt(2, Integer.parseInt(age));
+				 preparedStmt.setString(3, address);
+				 preparedStmt.setString(4, password);
+				 preparedStmt.setInt(5, Integer.parseInt(id));
+				 
+				 // execute the statement
+				 
+				 preparedStmt.execute();
+				 con.close();
+				 output = "Updated successfully";
+				 
+				 }
+				 catch (Exception e)
+				 {
+					 
+					 output = "Error while updating the beneficiary detail.";
+					 System.err.println(e.getMessage());
+				 }
+				 return output;
+		 }
+		
+	
+		// method to deleting beneficiary details
+		
+		public String deleteBeneficiaries(String InventorID)
+		 {
+			 String output = "";
+			 try
+			 {
+				 Connection con = connect();
+				 
+				 if (con == null) 
+				 {
+					 return "Error while connecting to the database for deleting."; 
+				 }
+				 
+				 // create a prepared statement
+					 
+				 String query = "delete from beneficiaries where InventorID=?";
+				 
+				 PreparedStatement preparedStmt = con.prepareStatement(query);
+				 
+				 // binding values
+				 preparedStmt.setInt(1, Integer.parseInt(InventorID));
+				 
+				 // execute the statement
+				 preparedStmt.execute();
+				 con.close();
+				 output = "Deleted successfully";
+				 
+			 }
+			 catch (Exception e)
+			 {
+				 
+			 output = "Error while deleting the Beneficiary Details.";
+			 System.err.println(e.getMessage());
+			 
+			 }
+			 
+			 return output;
+		 }
+		
 	
 	
 }
