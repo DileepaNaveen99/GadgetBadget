@@ -62,13 +62,13 @@ public class Product {
 	 preparedStmt.execute();
 	 mySQLconnection.close();
 	 
-	 operationStatus = "Product Inserted Successfully";
+	 operationStatus = "Product Inserted Successfully...";
 	 
 	 }
 	 catch (Exception e)
 	 {
 		 
-		 operationStatus = "Something went wrong! Plese Check the Details...";
+		 operationStatus = "Something went wrong! Please Check the Details...";
 		 System.err.println(e.getMessage());
 	 }
 	 
@@ -153,6 +153,93 @@ public class Product {
 		
 	 return operationStatus;
 	 
+	 }
+	
+	
+	//This Method allows to Update existing Products in the Catalogue
+	public String updateProduct(String pr_id, String pr_code, String pr_name, String pr_category, String pr_seller_id, String pr_origin_country, String pr_description, String pr_price)
+	{
+		 String operationStatus = "";
+		 
+		 try
+		 {
+			 Connection mySQLconnection = connect();
+			 
+			 if (mySQLconnection == null)
+			 {
+				 return "Database Connection Failed. Update Operation Failed!";
+			 }
+			 
+		
+			 String sql_statement = "UPDATE product SET productCode=?, productName=?, productCategory=?, productSellerID=?, productOriginCountry=?, productDescription=?, productPrice=? WHERE productID=?";
+			 
+			 PreparedStatement preparedStmt = mySQLconnection.prepareStatement(sql_statement);
+		 
+			 preparedStmt.setString(1, pr_code);
+			 preparedStmt.setString(2, pr_name);
+			 preparedStmt.setString(3, pr_category);
+			 preparedStmt.setDouble(4, Integer.parseInt(pr_seller_id));
+			 preparedStmt.setString(5, pr_origin_country);
+			 preparedStmt.setString(6, pr_description);
+			 preparedStmt.setDouble(7, Double.parseDouble(pr_price));
+			 preparedStmt.setInt(8, Integer.parseInt(pr_id));
+		 
+		 
+			 preparedStmt.execute();
+		 
+			 mySQLconnection.close();
+		 
+			 operationStatus = "Product Updated Successfully...";
+		 
+		 }
+		 catch (Exception e)
+		 {
+			 	operationStatus = "Something went wrong! Please Check the Details...";
+			 	System.err.println(e.getMessage());
+		 }
+		 
+		 	return operationStatus;
+		 	
+		 }
+	
+	
+	//This Method allows to Delete existing Products from the Catalogue
+	public String deleteProduct(String pr_id)
+	{
+		
+		String operationStatus = "";
+		
+		try
+		{
+			Connection mySQLconnection = connect();
+			
+			if (mySQLconnection == null)
+			{
+				return "Database Connection Failed. Delete Operation Failed!";
+			}
+			
+	
+			String sql_statement = "delete from product where productID=?";
+	 
+			PreparedStatement preparedStmt = mySQLconnection.prepareStatement(sql_statement);
+	 
+	 
+			preparedStmt.setInt(1, Integer.parseInt(pr_id));
+			preparedStmt.execute();
+	 
+			mySQLconnection.close();
+	 
+			operationStatus = "Product Deleted Successfully...";
+	 
+		}
+		catch (Exception e)
+		{
+			operationStatus = "Something went wrong! Please Check the Product ID...";
+			System.err.println(e.getMessage());
+		}
+		
+			return operationStatus;
+		
 	 }
 
 }
