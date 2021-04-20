@@ -9,7 +9,7 @@ import org.jsoup.*;
 import org.jsoup.parser.*;
 import org.jsoup.nodes.Document;
 
-@Path("/Prodects")
+@Path("/Products")
 public class ProductService {
 	
 	//Create a Product Object in class level
@@ -34,5 +34,13 @@ public class ProductService {
 		return status;
 		
 	}
+	
+	@GET
+	@Path("/")
+	@Produces(MediaType.TEXT_HTML)
+	public String readItems()
+	 {
+		return product.readProducts();
+	 }
 
 }

@@ -75,5 +75,84 @@ public class Product {
 	 	return operationStatus;
 	 	
 	 }
+	
+	
+	//This Method allows to Read Product details from the cataloguedb
+	public String readProducts()
+	{
+		
+		String operationStatus = "";
+		
+		try
+		{
+			Connection mySQLconnection = connect();
+			
+			if (mySQLconnection == null)
+			{
+				
+				return "Database Connection Failed. Read Operation Failed!";
+				
+			}
+			
+	operationStatus = "<table border='1'><tr><th>Product Code</th><th>Product Name</th>" +
+	 "<th>Product Category</th>" +
+	 "<th>Product Product Seller ID</th>" +
+	 "<th>Product Origin Country</th>" +
+	 "<th>Product Description</th>" +
+	 "<th>Product Price</th>" +
+	 "<th>Update</th><th>Delete</th></tr>";
+
+	 
+	 String sql_statement = "select * from product";
+	 
+	 Statement statement = mySQLconnection.createStatement();
+	 
+	 ResultSet rs = statement.executeQuery(sql_statement);
+	 
+	 while (rs.next())
+	 {
+		 
+		 String pr_id = Integer.toString(rs.getInt("productID"));
+		 String pr_code = rs.getString("productCode");
+		 String pr_name = rs.getString("productName");
+		 String pr_category = rs.getString("productCategory");
+		 String pr_seller_id = Integer.toString(rs.getInt("productSellerID"));
+		 String pr_origin_country = rs.getString("productOriginCountry");
+		 String pr_description = rs.getString("productDescription");
+		 String pr_price = Double.toString(rs.getDouble("productPrice"));
+		 
+		 
+		 operationStatus += "<tr><td>" + pr_code + "</td>";
+		 operationStatus += "<td>" + pr_name + "</td>";
+		 operationStatus += "<td>" + pr_category + "</td>";
+		 operationStatus += "<td>" + pr_seller_id + "</td>";
+		 operationStatus += "<td>" + pr_origin_country + "</td>";
+		 operationStatus += "<td>" + pr_description + "</td>";
+		 operationStatus += "<td>" + pr_price + "</td>";
+		 
+	 
+		 operationStatus += "<td><input name='Update_BTN' type='button' value='Update' class='btn btn-secondary'></td>"
+				 + "<td><form method='post' action='product.jsp'>"
+				 + "<input name='Delete_BTN' type='submit' value='Delete' class='btn btn-danger'>"
+				 + "<input name='itemID' type='hidden' value='" + pr_id
+				 + "'>" + "</form></td></tr>";
+	 }
+	 
+	 mySQLconnection.close();
+	 
+	 operationStatus += "</table>";
+	 
+	 }
+	 catch (Exception e)
+	 {
+		 
+		 operationStatus = "Something went wrong! Product Details not available...";
+		 System.err.println(e.getMessage());
+		 
+	 }
+		
+	 return operationStatus;
+	 
+	 }
 
 }
