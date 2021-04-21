@@ -79,6 +79,7 @@ public class Beneficiary {
 		 "<th>Update</th><th>Remove</th></tr>";
 
 		 String query = "select * from beneficiaries";
+		 
 		 Statement stmt = con.createStatement();
 		 ResultSet rs = stmt.executeQuery(query);
 		 
@@ -126,7 +127,7 @@ public class Beneficiary {
 	 
 		 return output;
 		 
-		 }
+		 } 
 	
 	
 	
@@ -161,7 +162,6 @@ public class Beneficiary {
 				 preparedStmt.setInt(5, Integer.parseInt(id));
 				 
 				 // execute the statement
-				 
 				 preparedStmt.execute();
 				 con.close();
 				 output = "Updated successfully";
@@ -175,6 +175,7 @@ public class Beneficiary {
 				 }
 				 return output;
 		 }
+		
 		
 	
 		// method to deleting beneficiary details
@@ -217,6 +218,61 @@ public class Beneficiary {
 			 return output;
 		 }
 		
-	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public String validateLogin(String userName, String password) 
+		{
+			try
+			{
+				Connection con = connect();
+					
+				if (con == null)
+				{
+					return "Error while connecting to the database for inserting."; 
+				}
+					
+				String query1 = "select InventorUser, InventorPassword from beneficiaries";
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query1);
+					
+				while(rs.next())
+				{
+					String un = rs.getString("InventorUser");
+					String pass = rs.getString("InventorPassword");
+						
+					if(userName.equals(un) && password.equals(pass))
+					{
+						return "Welcome "+ userName;
+					}
+					else if(userName.equals("admin") && password.equals("admin"))
+					{
+						return "Welcome Admin";
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				System.err.println(e.getMessage());
+			}
+			return "Username or password incorrect";
+		}
+		
+		
+			
 	
 }

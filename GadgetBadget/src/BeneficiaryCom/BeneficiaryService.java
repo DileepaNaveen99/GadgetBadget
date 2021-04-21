@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -28,6 +29,7 @@ public class BeneficiaryService {
 	
 	
 		 Beneficiary beneficiaryObj = new Beneficiary();
+		 
 		 @GET
 		 @Path("/")
 		 @Produces(MediaType.TEXT_HTML)
@@ -37,7 +39,7 @@ public class BeneficiaryService {
 		  return beneficiaryObj.readBeneficiaries();
 		  }
 		 
-		 
+		 		 
 		 @POST
 		 @Path("/")
 		 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -51,6 +53,8 @@ public class BeneficiaryService {
 		  String output = beneficiaryObj.insertBeneficiary(InventorUser, InventorAge, InventorAddress, InventorPassword);
 		 return output;
 		 }
+		 
+		 
 		 
 		 @PUT
 		 @Path("/")
@@ -75,6 +79,8 @@ public class BeneficiaryService {
 		 }
 		 
 		 
+		 
+		 
 		 @DELETE
 		 @Path("/")
 		 @Consumes(MediaType.APPLICATION_XML)
@@ -93,6 +99,23 @@ public class BeneficiaryService {
 		 return output;
 		 
 		 }
+		 
+		 
+		 
+		 
+			@POST
+			@Path("/login")
+			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+			@Produces(MediaType.TEXT_PLAIN)
+			
+			public String validateLogin(@FormParam("InventorUser") String InventorUser, 
+									    @FormParam("InventorPassword") String InventorPassword) 
+			{
+				String output = beneficiaryObj.validateLogin(InventorUser, InventorPassword);
+				return output;
+			}
+			
+			
 
 
 }
