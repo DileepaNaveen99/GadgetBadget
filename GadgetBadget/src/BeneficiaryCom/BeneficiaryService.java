@@ -100,22 +100,6 @@ public class BeneficiaryService {
 		 
 		 }
 		 
-		 
-		 
-		 
-			@POST
-			@Path("/login")
-			@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-			@Produces(MediaType.TEXT_PLAIN)
-			
-			public String validateLogin(@FormParam("InventorUser") String InventorUser, 
-									    @FormParam("InventorPassword") String InventorPassword) 
-			{
-				String output = beneficiaryObj.validateLogin(InventorUser, InventorPassword);
-				return output;
-			}
-			
-			
 
 
 }

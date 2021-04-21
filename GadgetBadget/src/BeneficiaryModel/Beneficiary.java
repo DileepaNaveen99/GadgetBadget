@@ -219,60 +219,6 @@ public class Beneficiary {
 		 }
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		public String validateLogin(String userName, String password) 
-		{
-			try
-			{
-				Connection con = connect();
-					
-				if (con == null)
-				{
-					return "Error while connecting to the database for inserting."; 
-				}
-					
-				String query1 = "select InventorUser, InventorPassword from beneficiaries";
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery(query1);
-					
-				while(rs.next())
-				{
-					String un = rs.getString("InventorUser");
-					String pass = rs.getString("InventorPassword");
-						
-					if(userName.equals(un) && password.equals(pass))
-					{
-						return "Welcome "+ userName;
-					}
-					else if(userName.equals("admin") && password.equals("admin"))
-					{
-						return "Welcome Admin";
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				System.err.println(e.getMessage());
-			}
-			return "Username or password incorrect";
-		}
-		
-		
 			
 	
 }
