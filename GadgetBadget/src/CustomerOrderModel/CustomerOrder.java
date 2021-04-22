@@ -92,7 +92,7 @@ public class CustomerOrder {
 				 "<th>Customer Password</th>" +
 				 "<th>Update</th><th>Remove</th></tr>";
 
-	 String query = "select * from customers";
+	 String query = "select * from customer";
 	 Statement stmt = connect.createStatement();
 	 ResultSet rs = stmt.executeQuery(query);
 	 
@@ -137,5 +137,83 @@ public class CustomerOrder {
 	 return output;
 	 } 
 	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	
+	public String updateCustomer(String Id, String name, String age, String phone, String address, String email, String pass)
+	{
+		 String output = "";
+		 
+		 try
+		 {
+		 		Connection connect = connect();
+		 		
+		 		if (connect == null)
+		 		{return "Error while connecting to the database for updating."; }
+		 
+		 		// create a prepared statement
+		 		String query = "UPDATE customer SET customerName=?,customerAge=?,customerPhone=?,customerAddress=?,customerEmail=?,customerPassword=? WHERE customerId=?";
+		 
+		 		PreparedStatement perStatement = connect.prepareStatement(query);
+		 
+		 		// binding values
+		 		perStatement.setString(1, name);
+		 		perStatement.setInt(2, Integer.parseInt(age));
+		 		perStatement.setString(3, phone);
+		 		perStatement.setString(4, address);
+		 		perStatement.setString(5, email);
+		 		perStatement.setString(6, pass);
+		 		
+		 		// execute the statement
+		 		perStatement.execute();
+		 		connect.close();
+		 	
+		 		output = "Updated successfully";
+		 }
+		 catch (Exception e)
+		 {
+			 	output = "Error while updating the item.";
+			 	System.err.println(e.getMessage());
+		 }
+		 
+		 return output;
+		 
+		 }
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	
+	public String deleteCustomer(String customerId)
+	 {
+	 
+			String output = "";
+	 
+			try
+			{
+				Connection connect = connect();
+				
+				if (connect == null)
+				{return "Error while connecting to the database for deleting."; }
+	 
+				// create a prepared statement
+				String query = "delete from customer where customerId=?";
+				PreparedStatement preStatement = connect.prepareStatement(query);
+	 
+				// binding values
+				preStatement.setInt(1, Integer.parseInt(customerId));
+	 
+				// execute the statement
+				preStatement.execute();
+				connect.close();
+	 
+				output = "Deleted successfully";
+			}
+			catch (Exception e)
+			{
+				output = "Error while deleting the item.";
+				System.err.println(e.getMessage());
+			}
+			return output;
+	 }
 	 
 }

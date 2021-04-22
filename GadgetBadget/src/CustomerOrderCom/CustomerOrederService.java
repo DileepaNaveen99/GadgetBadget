@@ -34,12 +34,55 @@ public class CustomerOrederService {
 			return output;
 	}
 	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
-	public String readItems()
+	public String readCustomers()
 	 {
 			return cust.readCustomers();
 	 }
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateCustomer(String customerInfo)
+	{
+		//Convert the input string to a JSON object
+		JsonObject itemObject = new JsonParser().parse(customerInfo).getAsJsonObject();
+		
+		//Read the values from the JSON object
+		String customerId = itemObject.get("customerId").getAsString();
+		String customerName = itemObject.get("customerName").getAsString();
+		String customerAge = itemObject.get("customerAge").getAsString();
+		String customerPhone = itemObject.get("customerPhone").getAsString();
+		String customerAddress = itemObject.get("customerAddress").getAsString();
+		String customerEmail = itemObject.get("customerEmail").getAsString();
+		String customerPassword = itemObject.get("customerPassword").getAsString();
+		String output = cust.updateCustomer(customerId, customerName, customerAge, customerPhone, customerAddress, customerEmail, customerPassword);
+		return output;
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+	@DELETE
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteCustomer(String customerInfo)
+	{
+		//Convert the input string to an XML document
+		Document doc = Jsoup.parse(customerInfo, "", Parser.xmlParser());
+
+		//Read the value from the element <customerID>
+		String customerId = doc.select("customerId").text();
+		String output = cust.deleteCustomer(customerId);
+		return output;
+	}
+	
 }
