@@ -40,13 +40,12 @@ public class CustomerOrder {
 						return "Error while connecting to the database for inserting."; 
 					}
 					
-					// create a prepared statement
+					//prepared statement
 					String query = " insert into customer (`customerId`,`customerName`,`customerAge`,`customerPhone`,`customerAddress`,`customerEmail`,`customerPassword)"
 					+ " values (?, ?, ?, ?, ?, ?, ?)";
 		 
 					PreparedStatement preStatement = connect.prepareStatement(query);
 		 
-					// binding values
 					preStatement.setInt(1, 0);
 					preStatement.setString(2, name);
 					preStatement.setInt(3, age);
@@ -54,8 +53,6 @@ public class CustomerOrder {
 					preStatement.setString(5, address);
 					preStatement.setString(6, email);
 					preStatement.setString(7, pass);
-					
-					// execute the statement
 
 					preStatement.execute();
 					connect.close();
@@ -83,7 +80,6 @@ public class CustomerOrder {
 		 if (connect == null)
 		 {return "Error while connecting to the database for reading."; }
 	 
-		 // Prepare the html table to be displayed
 		 output = "<table border='1'><tr><th>Customer ID</th><th>Customer Name</th>" +
 				 "<th>Customer Age</th>" +
 				 "<th>Customer Phone</th>" +
@@ -96,7 +92,6 @@ public class CustomerOrder {
 	 Statement stmt = connect.createStatement();
 	 ResultSet rs = stmt.executeQuery(query);
 	 
-	 // iterate through the rows in the result set
 	 	while (rs.next())
 	 	{
 		 	String customerId = Integer.toString(rs.getInt("customerId"));
@@ -107,7 +102,7 @@ public class CustomerOrder {
 		 	String customerEmail = rs.getString("customerEmail");
 		 	String customerPassword = rs.getString("customerPassword");
 	 
-		 	// Add into the html table
+		 	// Add into table
 		 	output += "<tr><td>" + customerId + "</td>";
 		 	output += "<td>" + customerName + "</td>";
 		 	output += "<td>" + customerAge + "</td>";
@@ -126,12 +121,12 @@ public class CustomerOrder {
 	 
 	 	connect.close();
 	 
-	 	// Complete the html table
+	 	// Complete the table
 	 	output += "</table>";
 	 }
 	 catch (Exception e)
 	 {
-		 	output = "Error while reading the items.";
+		 	output = "Error while reading the customers.";
 		 	System.err.println(e.getMessage());
 	 }
 	 return output;
@@ -152,17 +147,18 @@ public class CustomerOrder {
 		 		{return "Error while connecting to the database for updating."; }
 		 
 		 		// create a prepared statement
-		 		String query = "UPDATE customer SET customerName=?,customerAge=?,customerPhone=?,customerAddress=?,customerEmail=?,customerPassword=? WHERE customerId=?";
+		 		String query = " insert into customer (`customerId`,`customerName`,`customerAge`,`customerPhone`,`customerAddress`, `customerEmail`, `customerPassword`)"
+		 				 + " values (?, ?, ?, ?, ?, ?, ?)";
 		 
 		 		PreparedStatement perStatement = connect.prepareStatement(query);
-		 
-		 		// binding values
+
 		 		perStatement.setString(1, name);
 		 		perStatement.setInt(2, Integer.parseInt(age));
 		 		perStatement.setString(3, phone);
 		 		perStatement.setString(4, address);
 		 		perStatement.setString(5, email);
 		 		perStatement.setString(6, pass);
+		 		perStatement.setInt(7, Integer.parseInt(Id));
 		 		
 		 		// execute the statement
 		 		perStatement.execute();
@@ -172,7 +168,7 @@ public class CustomerOrder {
 		 }
 		 catch (Exception e)
 		 {
-			 	output = "Error while updating the item.";
+			 	output = "Error while updating the customer.";
 			 	System.err.println(e.getMessage());
 		 }
 		 
@@ -195,14 +191,12 @@ public class CustomerOrder {
 				if (connect == null)
 				{return "Error while connecting to the database for deleting."; }
 	 
-				// create a prepared statement
+				//prepared statement
 				String query = "delete from customer where customerId=?";
 				PreparedStatement preStatement = connect.prepareStatement(query);
-	 
-				// binding values
+
 				preStatement.setInt(1, Integer.parseInt(customerId));
-	 
-				// execute the statement
+
 				preStatement.execute();
 				connect.close();
 	 
@@ -210,7 +204,7 @@ public class CustomerOrder {
 			}
 			catch (Exception e)
 			{
-				output = "Error while deleting the item.";
+				output = "Error while deleting the customer.";
 				System.err.println(e.getMessage());
 			}
 			return output;
