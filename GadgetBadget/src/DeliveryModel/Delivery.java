@@ -179,5 +179,30 @@ public class Delivery {
 	 }
 	 return output;
 	 }
+	public String deleteDeliveryEntry(String deliveryId)
+	 {
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for deleting."; }
+	 // create a prepared statement
+	 String query = "delete from delivery where deliveryId=?";
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 // binding values
+	 preparedStmt.setInt(1, Integer.parseInt(deliveryId));
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Deleted successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while deleting the delivery entry.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
 }
 
