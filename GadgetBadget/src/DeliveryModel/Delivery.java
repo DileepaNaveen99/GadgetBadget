@@ -143,6 +143,41 @@ public class Delivery {
 	 }
 	 return output;
 	 }
-
+	public String updateDelivery(String deliveryId, String orderId, String paymentId, String userId, String address, String deliveryPersonId, String status)
+	
+	 {
+	 String output = "";
+	 try
+	 {
+	 Connection con = connect();
+	 if (con == null)
+	 {return "Error while connecting to the database for updating."; }
+	 // create a prepared statement
+	 
+	 
+	 String query = " update delivery set orderId= ? , paymentId = ? , userId = ? , address = ?, deliveryPersonId = ?, status= ?"
+	 		+ "  where deliveryId = ? ";
+		
+	 PreparedStatement preparedStmt = con.prepareStatement(query);
+	 // binding values
+	 preparedStmt.setString(1, orderId);
+	 preparedStmt.setInt(2, Integer.parseInt(paymentId));
+	 preparedStmt.setString(3, userId);
+	 preparedStmt.setString(4, address);
+	 preparedStmt.setString(5, deliveryPersonId);
+	 preparedStmt.setString(6, status);
+	 preparedStmt.setInt(7, Integer.parseInt(deliveryId));
+	 // execute the statement
+	 preparedStmt.execute();
+	 con.close();
+	 output = "Updated successfully";
+	 }
+	 catch (Exception e)
+	 {
+	 output = "Error while updating the delivery information.";
+	 System.err.println(e.getMessage());
+	 }
+	 return output;
+	 }
 }
 
