@@ -16,6 +16,8 @@ public class ProductService {
 	
 	Product product = new Product();
 	
+	//Insert method which requires HTML Form data
+	
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -35,6 +37,9 @@ public class ProductService {
 		
 	}
 	
+	
+	//Read Method to retrieve Product Details
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -43,6 +48,8 @@ public class ProductService {
 		return product.readProducts();
 	 }
 	
+	
+	//Update method which requires details in JSON format
 	
 	@PUT
 	@Path("/")
@@ -67,6 +74,7 @@ public class ProductService {
 		
 	}
 	
+	//Delete method which requires target Product ID in XML format
 	
 	@DELETE
 	@Path("/")

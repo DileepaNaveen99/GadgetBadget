@@ -27,6 +27,7 @@ public class Product {
 		 }
 	
 	//This Method allows to Insert new Products to the Catalogue
+	//First step in every method is to call connect method to connect to the database
 	
 	public String insertProduct(String pr_code, String pr_name, String pr_category, int pr_seller_id, String pr_origin_country, String pr_description, String pr_price)
 	{
@@ -44,7 +45,7 @@ public class Product {
 		 }
 		 
 		 
-	 
+	 //insert query
 	 String sql_statement = " insert into product (`productID`,`productCode`,`productName`,`productCategory`,`productSellerID`, `productOriginCountry`, `productDescription`, `productPrice`)"
 	 + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 	 
@@ -102,13 +103,15 @@ public class Product {
 	 "<th>Product Price</th>" +
 	 "<th>Update</th><th>Delete</th></tr>";
 
-	 
+	 //read sql query
 	 String sql_statement = "select * from product";
 	 
 	 Statement statement = mySQLconnection.createStatement();
 	 
 	 ResultSet rs = statement.executeQuery(sql_statement);
 	 
+	 
+	 //loop the result set and create the table
 	 while (rs.next())
 	 {
 		 
@@ -171,6 +174,7 @@ public class Product {
 			 }
 			 
 		
+			 //update sql query
 			 String sql_statement = "UPDATE product SET productCode=?, productName=?, productCategory=?, productSellerID=?, productOriginCountry=?, productDescription=?, productPrice=? WHERE productID=?";
 			 
 			 PreparedStatement preparedStmt = mySQLconnection.prepareStatement(sql_statement);
@@ -219,6 +223,7 @@ public class Product {
 			}
 			
 	
+			//delete sql query
 			String sql_statement = "delete from product where productID=?";
 	 
 			PreparedStatement preparedStmt = mySQLconnection.prepareStatement(sql_statement);
