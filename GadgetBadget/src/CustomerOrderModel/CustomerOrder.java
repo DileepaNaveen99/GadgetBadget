@@ -25,6 +25,7 @@ public class CustomerOrder {
 	
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	//ADD CUSTOMER
 	
 	public String addCustomer(String name, int age, String phone, String address, String email, String pass)
 	 {
@@ -68,6 +69,8 @@ public class CustomerOrder {
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	//READ CUSTOMER
+	
 	public String readCustomers()
 	 {
 		
@@ -102,7 +105,8 @@ public class CustomerOrder {
 		 	String customerEmail = rs.getString("customerEmail");
 		 	String customerPassword = rs.getString("customerPassword");
 	 
-		 	// Add into table
+		 	// Add data into customer table
+		 	
 		 	output += "<tr><td>" + customerId + "</td>";
 		 	output += "<td>" + customerName + "</td>";
 		 	output += "<td>" + customerAge + "</td>";
@@ -111,7 +115,7 @@ public class CustomerOrder {
 		 	output += "<td>" + customerEmail + "</td>";
 		 	output += "<td>" + customerPassword + "</td>";
 	 
-		 	// buttons
+		 	
 		 	output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 		 			 + "<td><form method='post' action='customer.jsp'>"
 		 			 + "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
@@ -121,7 +125,6 @@ public class CustomerOrder {
 	 
 	 	connect.close();
 	 
-	 	// Complete the table
 	 	output += "</table>";
 	 }
 	 catch (Exception e)
@@ -134,6 +137,7 @@ public class CustomerOrder {
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	//UPDATE CUSTOMER
 	
 	public String updateCustomer(String Id, String name, String age, String phone, String address, String email, String pass)
 	{
@@ -146,7 +150,7 @@ public class CustomerOrder {
 		 		if (connect == null)
 		 		{return "Error while connecting to the database for updating."; }
 		 
-		 		// create a prepared statement
+		 		//creating a prepared statement
 		 		String query = "UPDATE customer SET customerName=?,customerAge=?,customerPhone=?,customerAddress=?,customerEmail=?,customerPassword=? WHERE customerId=?";
 		 
 		 		PreparedStatement perStatement = connect.prepareStatement(query);
@@ -159,7 +163,6 @@ public class CustomerOrder {
 		 		perStatement.setString(6, pass);
 		 		perStatement.setInt(7, Integer.parseInt(Id));
 		 		
-		 		// execute the statement
 		 		perStatement.execute();
 		 		connect.close();
 		 	
@@ -177,6 +180,7 @@ public class CustomerOrder {
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	//DELETE CUSTOMER
 	
 	public String deleteCustomer(String customerId)
 	 {
@@ -190,8 +194,10 @@ public class CustomerOrder {
 				if (connect == null)
 				{return "Error while connecting to the database for deleting."; }
 	 
-				//prepared statement
+				
 				String query = "delete from customer where customerId=?";
+				
+				//creating a prepared statement
 				PreparedStatement preStatement = connect.prepareStatement(query);
 
 				preStatement.setInt(1, Integer.parseInt(customerId));

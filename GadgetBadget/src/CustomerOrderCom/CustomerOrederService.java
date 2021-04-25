@@ -17,6 +17,8 @@ import org.jsoup.nodes.Document;
 @Path("/CustomerOrder")
 public class CustomerOrederService {
 	
+	//ADD
+	
 	CustomerOrder cust = new CustomerOrder();
 	@POST
 	@Path("/")
@@ -36,6 +38,8 @@ public class CustomerOrederService {
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	//READ
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
@@ -45,6 +49,8 @@ public class CustomerOrederService {
 	 }
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	//UPDATE
 	
 	@PUT
 	@Path("/")
@@ -69,6 +75,7 @@ public class CustomerOrederService {
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+	//DELETE
 
 	@DELETE
 	@Path("/")
