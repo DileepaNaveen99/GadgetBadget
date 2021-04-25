@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class Payment {
 	
-	//This Method provides a proper Database Connection
+	// Database Connection
 	private Connection connect()
 	{
 		Connection mySQLconnection = null;
@@ -30,7 +30,7 @@ public class Payment {
 		 	
 		 }
 	
-	//This Method allows to Insert new Products to the Catalogue
+	//add new payment
 	
 	public String insertPayment( String orderId, String amount, String userId)
 	{
@@ -78,7 +78,7 @@ public class Payment {
 	 	
 	 }
 	
-	public String readItems()
+	public String GetAllPayments()
 	 {
 	 String output = "";
 	 try
@@ -86,7 +86,7 @@ public class Payment {
 	 Connection con = connect();
 	 if (con == null)
 	 {return "Error while connecting to the database for reading."; }
-	 // Prepare the html table to be displayed
+	
 	 output = "<table border='1'><tr><th>Payment Id Code</th><th>User Id</th>" +
 	 "<th>Order Id</th>" +
 	 "<th>Amount</th>" + "<th>Payment Date</th>" + 
@@ -95,7 +95,7 @@ public class Payment {
 	 String query = "select * from payment";
 	 Statement stmt = con.createStatement();
 	 ResultSet rs = stmt.executeQuery(query);
-	 // iterate through the rows in the result set
+	
 	 while (rs.next())
 	 {
 	 String paymentId = Integer.toString(rs.getInt("paymentId"));
@@ -105,13 +105,13 @@ public class Payment {
 	 String paymentDate = rs.getString("paymentDate");
 	 
 	 
-	 // Add into the html table
+	 // Append to the html table
 	 output += "<tr><td>" + paymentId + "</td>";
 	 output += "<td>" + userId + "</td>";
 	 output += "<td>" + orderId + "</td>";
 	 output += "<td>" + amount + "</td>";
 	 output += "<td>" + paymentDate + "</td>";
-	 // buttons
+	 // action buttons
 	 
 	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 	 + "<td><form method='post' action='items.jsp'>"
@@ -121,7 +121,7 @@ public class Payment {
 	 }
 	 con.close();
 	 
-	 // Complete the html table
+	
 	 output += "</table>";
 	 }
 	 catch (Exception e)

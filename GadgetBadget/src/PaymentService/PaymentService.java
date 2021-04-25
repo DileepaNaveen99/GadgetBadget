@@ -21,7 +21,7 @@ public class PaymentService {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertItem(
+	public String insertPayment(
 			@FormParam("userId") String userId,
 			@FormParam("orderId") String orderId,
 			@FormParam("amount") String amount
@@ -38,9 +38,9 @@ public class PaymentService {
 	@GET
 	 @Path("/readAsHtml")
 	 @Produces(MediaType.TEXT_HTML)
-	 public String getAllPaymentsAsHtml()
+	 public String getAllPayments()
 	  {
-		return payment.readItems();
+		return payment.GetAllPayments();
 	  }
 
 }

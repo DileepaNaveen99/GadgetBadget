@@ -28,7 +28,7 @@ public class DeliveryService {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertItem(
+	public String insertDeliveryItem(
 			@FormParam("userId") String userId,
 			@FormParam("orderId") String orderId,
 			@FormParam("paymentId") String paymentId,
@@ -47,9 +47,9 @@ public class DeliveryService {
 	@GET
 	 @Path("/readAsHtml")
 	 @Produces(MediaType.TEXT_HTML)
-	 public String getAllPaymentsAsHtml()
+	 public String getAlldelivery()
 	  {
-		return delivery.readItems();
+		return delivery.readAllDeliveryData();
 	  }
 	@PUT
 	 @Path("/")

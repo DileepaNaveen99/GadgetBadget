@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class Delivery {
 	
-	//This Method provides a proper Database Connection
+	// Database Connection
 	private Connection connect()
 	{
 		Connection mySQLconnection = null;
@@ -30,7 +30,7 @@ public class Delivery {
 		 	
 		 }
 	
-	//This Method allows to Insert new Products to the Catalogue
+	//Add a delivery
 	
 	public String insertDelivery( String orderId, String paymentId, String userId, String address, String deliveryPersonId, String status)
 	{
@@ -82,8 +82,8 @@ public class Delivery {
 	 	return operationStatus;
 	 	
 	 }
-	
-	public String readItems()
+	//read all delivery data from DB 
+	public String readAllDeliveryData()
 	 {
 	 String output = "";
 	 try
@@ -91,7 +91,7 @@ public class Delivery {
 	 Connection con = connect();
 	 if (con == null)
 	 {return "Error while connecting to the database for reading."; }
-	 // Prepare the html table to be displayed
+	 // Prepare the html table 
 	 output = "<table border='1'><tr><th>Delivery Id </th><th>Payment Id</th> <th>Order Id</th> <th>User Id</th>" +
 	 "<th>Delivery Person Id</th>" +
 	 "<th>Address</th>" + "<th>Status</th> <th>Updated Date</th>" + 
@@ -99,7 +99,7 @@ public class Delivery {
 	 String query = "select * from delivery";
 	 Statement stmt = con.createStatement();
 	 ResultSet rs = stmt.executeQuery(query);
-	 // iterate through the rows in the result set
+	 
 	 while (rs.next())
 	 {
 	 String paymentId = Integer.toString(rs.getInt("paymentId"));
@@ -113,7 +113,7 @@ public class Delivery {
 
 	 
 	 
-	 // Add into the html table
+	 // Append to the html table
 	 output += "<tr><td>" + deliveryId + "</td>";
 	 output += "<td>" + paymentId + "</td>";
 	 output += "<td>" + orderId + "</td>";
@@ -123,7 +123,7 @@ public class Delivery {
 	 output += "<td>" + address + "</td>";
 	 output += "<td>" + status + "</td>";
 	 output += "<td>" + updatedDate + "</td>";
-	 // buttons
+	 //Action buttons
 	 
 	 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 	 + "<td><form method='post' action='items.jsp'>"
@@ -133,7 +133,7 @@ public class Delivery {
 	 }
 	 con.close();
 	 
-	 // Complete the html table
+	 
 	 output += "</table>";
 	 }
 	 catch (Exception e)
@@ -143,6 +143,7 @@ public class Delivery {
 	 }
 	 return output;
 	 }
+	//update delivery information
 	public String updateDelivery(String deliveryId, String orderId, String paymentId, String userId, String address, String deliveryPersonId, String status)
 	
 	 {
@@ -152,14 +153,14 @@ public class Delivery {
 	 Connection con = connect();
 	 if (con == null)
 	 {return "Error while connecting to the database for updating."; }
-	 // create a prepared statement
+	 
 	 
 	 
 	 String query = " update delivery set orderId= ? , paymentId = ? , userId = ? , address = ?, deliveryPersonId = ?, status= ?"
 	 		+ "  where deliveryId = ? ";
 		
 	 PreparedStatement preparedStmt = con.prepareStatement(query);
-	 // binding values
+	 
 	 preparedStmt.setString(1, orderId);
 	 preparedStmt.setInt(2, Integer.parseInt(paymentId));
 	 preparedStmt.setString(3, userId);
@@ -179,6 +180,7 @@ public class Delivery {
 	 }
 	 return output;
 	 }
+	//delete a delivery
 	public String deleteDeliveryEntry(String deliveryId)
 	 {
 	 String output = "";
