@@ -147,8 +147,7 @@ public class CustomerOrder {
 		 		{return "Error while connecting to the database for updating."; }
 		 
 		 		// create a prepared statement
-		 		String query = " insert into customer (`customerId`,`customerName`,`customerAge`,`customerPhone`,`customerAddress`, `customerEmail`, `customerPassword`)"
-		 				 + " values (?, ?, ?, ?, ?, ?, ?)";
+		 		String query = "UPDATE customer SET customerName=?,customerAge=?,customerPhone=?,customerAddress=?,customerEmail=?,customerPassword=? WHERE customerId=?";
 		 
 		 		PreparedStatement perStatement = connect.prepareStatement(query);
 
